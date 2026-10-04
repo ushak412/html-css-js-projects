@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Social Login</title>
+        <link rel="stylesheet" href="social-login-styles.css">
+        <!--
+        The viewport meta tag tells mobile browsers how wide to make the viewport and how much to zoom, so the page is laid out for the
+        device's real screen size.
+
+        Without it, phones pretend the screen is about 980px wide, render the page at that width, and shrink it to fit. The page looks tiny,
+        and CSS (like media queries and 100%/vw units) sees 980px instead of the real width.
+
+        width=device-width: make the viewport as wide as the device's screen. initial-scale=1: start at 100% zoom, with no shrinking or enlarging.
+
+        Why it matters: media queries such as (width < 550px) work, layouts adapt to the real screen, text is readable without pinch-zooming, and search engines treat the page as mobile-friendly.
+
+        Place it inside <head>. Avoid user-scalable=no and maximum-scale=1,because they block pinch-to-zoom and hurt accessibility.
+        -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+
+    <body>
+        <main>
+            <h1>
+                Already working together?
+            </h1>
+            <p>
+                Log in to your account and connect with your teammates!
+            </p>
+            <form>
+                <input type="email" placeholder="youremail@address.com"/>
+                <button>
+                    <?xml version="1.0" encoding="utf-8"?>
+                    <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M16.3153 16.6681C15.9247 17.0587 15.9247 17.6918 16.3153 18.0824C16.7058 18.4729 17.339 18.4729 17.7295 18.0824L22.3951 13.4168C23.1761 12.6357 23.1761 11.3694 22.3951 10.5883L17.7266 5.9199C17.3361 5.52938 16.703 5.52938 16.3124 5.91991C15.9219 6.31043 15.9219 6.9436 16.3124 7.33412L19.9785 11.0002L2 11.0002C1.44772 11.0002 1 11.4479 1 12.0002C1 12.5524 1.44772 13.0002 2 13.0002L19.9832 13.0002L16.3153 16.6681Z" fill="currentColor"/>
+                    </svg>
+                </button>
+            </form>
+
+            <div class="floating-images">
+                <img src="https://plus.unsplash.com/premium_photo-1764194667541-4e7fce564024?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Dog Image"/>
+                
+                <img src="https://plus.unsplash.com/premium_photo-1760735448100-839196495956?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="parrot image"/>
+
+                <img src="https://images.unsplash.com/photo-1752328618157-368790ad24e8?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" atl="zebra image"/>
+
+                <img src="https://images.unsplash.com/photo-1759689472021-37cab4e84c9d?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="bird image"/>
+
+                <img src="https://images.unsplash.com/photo-1569275103778-1adf93f412ad?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="monkey image"/>
+            </div>
+
+        </main>
+        
+    </body>
+</html>

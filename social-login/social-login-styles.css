@@ -1,0 +1,243 @@
+/*
+By default, elements use box-sizing: content-box, so the width/height you set applies only to the content. 
+Padding and border are added on top, making the element bigger than the value you wrote. Margin is never included.
+
+box-sizing: border-box makes width/height include padding and border, so the element's total size is exactly the width you set.
+
+Margin is the exception. It's the empty space outside the element that pushes other elements away, so it's never counted in the width.
+*/
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    align-items: center;
+    margin: 0;
+}
+
+/*
+padding: 4rem 1rem adds space inside main: top/bottom = 4rem (64px), left/right = 1rem (16px) It pushes the content away from main's edges.
+
+width: 100% makes main try to fill its parent (body), because as a flex item it would otherwise shrink to fit its content.
+max-width: 800px caps that width, so main is 800px on wide screens and the full parent width on narrow ones.
+
+text-align: center centers inline content (text, images, inline-block elements like input) inside main. It is inherited by child elements.
+It does not center block boxes; margin: auto does that.
+
+box-shadow: 0 0 0 20px #dde6f7:
+  0 0   = no horizontal or vertical offset
+  0     = no blur, so the edge is sharp
+  20px  = spread, the shadow grows 20px on every side
+  color = #dde6f7
+This draws an even ring around main without taking up layout space.
+
+position: relative makes main the reference box for the absolutely positioned .floating-images.
+*/
+
+main {
+    background: linear-gradient(to right, #6a7cf4, #3d52d5);
+    color: white;
+    padding: 4rem 1rem;
+    width: 100%;
+    max-width: 800px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 0 0 20px #dde6f7;
+    position: relative;
+}
+
+/*
+Some HTML elements have a default margin from the browser:
+  body: 8px on all sides
+  h1:   0.67em on top and bottom (about 21px)
+  p:    1em on top and bottom (16px)
+
+em is a length unit relative to the font size of the current element.
+We can remove a default by setting the margin to 0. Here we remove only the top margin of h1, so it sits closer to the top of main.
+*/
+h1 {
+    margin-top: 0;
+}
+
+p {
+    color: white;
+}
+
+/*
+The root font size is the font size of the <html> element. Browsers default to 16px, so 1rem = 16px.
+
+margin: 2rem auto 0 means:
+  top    = 2rem (32px of space above the form)
+  right  = auto
+  bottom = 0
+  left   = not written, so it copies right (auto)
+
+With auto on both sides, the browser splits the leftover space equally between left and right: left + right = main's content width - form width
+
+max-width: 400px limits the form to 400px at most. On a screen narrower than that, the form shrinks to fit instead.
+*/
+
+form {
+    margin: 2rem auto 0;
+    max-width: 400px;
+    position: relative;
+}
+
+/*
+An input doesn't fill its parent by default, so width: 100% makes it as wide as the form.
+
+The form is at most 400px wide (max-width), so the input is also at most 400px and shrinks together with the form on small screens.
+1. Input box overflow: the box becomes wider than the form. border-box prevents this, because the input's padding and border are counted inside the 100%.
+2. Long text: the input box stays the same size, and the text scrolls inside it. When the text is longer than the box, the beginning scrolls out of view as the user types, and they can use the arrow keys to move through it. Nothing is lost; it just isn't all visible at once.
+*/
+
+input {
+    background: #a3adef;
+    border: 1px solid #bfc6f3;
+    border-radius: 50px;
+    font-size: 1rem;
+    padding: 1rem;
+    width: 100%;
+}
+
+input::placeholder {
+    color: #f4f4f8;
+}
+
+/*
+position: absolute takes the button out of the flow and places it relative to <form> (which has position: relative).
+right: 5px and top: 5px put it 5px from the form's right and top edges.
+
+height: calc(100% - 10px) makes the button as tall as the form minus 10px (5px gap on top + 5px gap on bottom), so it sits evenly inside
+the input.
+aspect-ratio: 1 makes the width equal to the height, and
+border-radius: 50% turns that square into a circle.
+
+display: flex lets us center the arrow (the button's only child):
+  justify-content: center = centers it horizontally
+  align-items: center     = centers it vertically
+*/
+
+button {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    border-radius: 50%;
+    aspect-ratio: 1;
+    border-style: none;
+    height: calc(100% - 10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f4f4f8;
+    cursor: pointer;
+    color: #3d52d5;
+    transition: opacity 0.015s;
+}
+
+/*
+:hover applies these styles while the cursor is over the button.
+
+linear-gradient(to right, #6a7cf4, #3d52d5): the background blends
+from #6a7cf4 on the left to #3d52d5 on the right.
+
+color: #f4f4f8 changes the arrow to near-white on hover. This works
+because the SVG path uses fill="currentColor", so the arrow follows
+the button's text color.
+*/
+
+button:hover {
+    background: linear-gradient(to right, #6a7cf4, #3d52d5);
+    color: #f4f4f8;
+}
+
+/*
+:active applies these styles only while the button is being pressed.
+
+opacity: 0.8 makes the whole button 80% opaque (slightly see-through),
+giving a quick "pressed" feedback. It returns to normal on release.
+*/
+
+button:active {
+    opacity: 0.8;
+}
+
+/*
+all the images are placed absolute to its parent's relative/absolute position. <main> is the parent of floating-images. 
+
+for position: absolute;, the images stay where they are supposed to stay as per normal html
+ bottom: -50px; places the images out of the <main>, -negative moved the images out of <main>
+
+ width: 100%;
+
+ What absolute gives you
+
+1. It takes the images out of the flow. If .floating-images were a normal block, it would sit below the form and make main taller to contain it. The images would be inside the card, stacked under the form. Absolute removes it from the flow, so main keeps its height.
+
+2. It lets you place the row at an exact spot. bottom: -50px anchors the bottom of the row 50px below main's bottom edge (negative moves it outward). The row is 79px tall, so about 29px of it overlaps the card and 50px hangs below. That's the "floating" effect in your design.
+
+3. It needs position: relative on main. That is what makes main the reference box. Without it, bottom: -50px would be measured from the page, and the images would end up somewhere else entirely.
+ 
+*/
+
+.floating-images {
+    position: absolute;
+    bottom: -50px;
+    width: 100%;
+    left: 0;
+    right: 0; 
+}
+
+/*
+width: 75px is a fixed width: the element is exactly 75px wide no matter how big or small the screen is. px is an absolute unit, so it doesn't scale with the window.
+
+aspect-ratio sets the proportion between an element's width and height, so the browser calculates one from the other. so the height is same as width that is 75px
+
+object-fit: cover controls how an image (or video) fills its box when the box's shape doesn't match the image's shape. With cover, the image is scaled proportionally until it fills the whole box, and whatever sticks out gets cropped.
+
+margin: 0 1rem; is 0 to the top, and 16px (1 rem) to the right
+
+border: 5px solid #f0f1f9; is 5px	Border thickness, solid	Border style (a continuous line), #f0f1f9	Border color
+
+box-shadow: 0 4px 5px black;
+  0px   = no horizontal shift - no horizontal shadow
+  4px   = shadow moved 4px down
+  5px   = blur, softens the shadow's edges
+  black = shadow color
+The shadow is the same size as the element (no spread), so only the part pushed out by the offset and blur is visible, mostly along the bottom.
+
+*/
+
+.floating-images img{
+    width: 75px;
+    border-radius: 50%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    margin: 0 1rem;
+    border: 5px solid #f0f1f9;
+    box-shadow: 0 4px 5px black;
+}
+
+/*
+@media screen and (width < 550px) applies the rules inside it only when the screen (not print) is narrower than 550px. The browser
+re-checks this every time the window is resized, so the rules switch on and off automatically.
+
+.floating-images img:nth-child(n + 4) selects every <img> inside .floating-images that is the 4th child or later (here, the 4th and
+5th images). Positions start at 1.
+
+display: none removes those images completely: they are not drawn and take no space. The remaining 3 images stay centered because of
+text-align: center.
+
+Why: each image is 75px wide plus 1rem margin on both sides (about 107px each). 5 images need about 535px, which doesn't fit on a phone, but 3 images (about 321px) do.
+*/
+
+@media screen and (width < 550px){
+    .floating-images img:nth-child(n + 4) {
+        display: none;
+    }
+}
+
