@@ -1,0 +1,108 @@
+* {
+    box-sizing: border-box;
+}
+/*
+margin: 0 removes the default 8px margin on all four sides.
+
+padding: 1rem adds 16px of space inside body, on all four sides. It keeps the card from touching the window edges on small screens. Because of
+box-sizing: border-box, it doesn't add to the min-height.
+
+background: #b6c9d3 sets the page color. The body's background is painted across the whole window, even where the body box itself is shorter.
+
+By default, the body is only as tall as its content (height: auto).
+min-height: 100vh makes it at least as tall as the window, which gives
+align-items room to center main vertically.
+
+display: flex makes body a flex container, and main its only item.
+justify-content: center centers main horizontally.
+align-items: center centers main vertically.
+
+text-align: center centers inline content (text, images) and is inherited by child elements.
+
+font-family sets the font for the page. Children inherit it, and sans-serif is the fallback if Montserrat fails to load.
+*/
+body {
+    padding: 1rem;
+    margin: 0;
+    background: #b6c9d3;
+    text-align: center;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/*
+background: white sets the card's color.
+
+max-width: 400px caps the card's width.
+width: 100% makes the card fill body (up to that cap). It is needed
+because main is a flex item and would otherwise shrink to fit its content.
+
+padding: 25px adds space inside main, on all four sides, between the
+card's edge and its content.
+
+border-radius: 15px rounds the card's corners.
+*/
+main {
+    background: white;
+    max-width: 400px;
+    width: 100%;
+    padding: 25px;
+    border-radius: 15px;
+}
+
+/*
+background: linear-gradient(to right, #1c8af7, #1270cd) blends the color from #1c8af7 on the left to #1270cd on the right.
+
+color: white sets the text color. The SVG uses fill="currentColor", so the QR code follows it and turns white.
+
+border-radius: 10px rounds the corners. It is smaller than main's 15px so the inner box looks proportionate to the card.
+
+aspect-ratio: 1 makes the height equal to the width, so the box is a square at any screen size.
+
+display: flex makes the SVG a flex item, so it can be centered:
+  justify-content: center = centers it horizontally
+  align-items: center     = centers it vertically
+*/
+
+.qr-code {
+    background: linear-gradient(to right, #1c8af7, #1270cd);
+    color: white;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 1;
+}
+
+/*
+width: 60% sizes the QR relative to the blue box. With no padding on the box, 60% is measured against its full width, so the QR scales with
+the box and the blue space around it stays proportional. The height follows from the SVG's viewBox.
+*/
+
+.qr-code svg {
+    width: 60%;
+}
+
+/*
+margin-inline sets only the left and right margins, so it doesn't reset the top and bottom
+*/
+
+h1, p {
+    margin-inline: 20px;
+    line-height: 1.5;
+}
+
+h1 {
+    margin-top: 2.5rem;
+    font-size: 1.3rem;
+    color: #0a3968;
+}
+
+
+p {
+    font-size: 1rem;
+    color: grey;
+}
