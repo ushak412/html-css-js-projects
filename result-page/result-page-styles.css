@@ -1,0 +1,305 @@
+* {
+    box-sizing: border-box;
+}
+/*
+main is the only child of body, so body is made a flex container to
+center it:
+  display: flex makes body a flex container and main its only item.
+  justify-content: center centers main horizontally.
+  align-items: center centers main vertically.
+
+min-height: 100vh makes body at least as tall as the window, which gives
+align-items room to center main vertically.
+
+margin: 0 removes the default 8px margin on all four sides.
+
+padding: 10px adds space inside body, so main doesn't touch the edges
+of the screen on small devices. Because of box-sizing: border-box, the
+padding doesn't add to the min-height.
+
+font-family sets the font for the page. Children inherit it, and
+sans-serif is the fallback if Montserrat fails to load.
+*/
+
+body {
+    margin: 0;
+    background: #cedcfb;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    font-family: "Montserrat", sans-serif;
+}
+
+/*
+display: flex puts main's two children, your-result-wrapper and
+summary-wrapper, side by side in a row.
+
+justify-content and align-items aren't needed. The two panels together
+fill 100% of main's width, so there is no leftover space to distribute.
+Without align-items, the default (stretch) makes both panels the same
+height.
+
+main is a flex item of body, so by default its width shrinks to fit its
+content. width: 100% makes it fill body instead.
+
+max-width: 700px caps that width. Without it, main would stretch across
+the whole window on large screens, making the panels very wide. With it,
+main fills the screen on phones and stops growing at 700px.
+
+border-radius: 15px rounds the card's corners.
+*/
+main {
+    width: 100%;
+    max-width: 700px;
+    background: white;
+    border-radius: 15px;
+    display: flex;
+}
+
+/*
+width: 50% makes this panel half of main's width. The other panel,
+summary-wrapper, takes the other half.
+
+border-radius: 15px rounds the corners. It matches main's radius, since
+the panel touches the card's edge.
+
+display: flex makes the panel a flex container, so its children can be
+centered:
+  flex-direction: column stacks them top to bottom.
+  justify-content: center centers them vertically (the main axis is
+  vertical in a column).
+  align-items: center centers them horizontally.
+
+padding: 50px adds space inside the panel, on all four sides, between
+its edge and its content. Because of box-sizing: border-box, the
+padding is included in the 50% width.
+
+text-align: center centers the text inside each child. It centers
+inline content (text, inline elements) only, not block boxes.
+*/
+.your-result-wrapper {
+    width: 50%;
+    background: linear-gradient(to bottom, #667ce9, #412cb9);
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+    text-align: center;
+}
+
+/*
+margin: 0 removes the browser's default top and bottom margins on this
+heading, so the spacing around it can be set on purpose. This rule
+only affects the "Your Result" heading; the "Summary" heading has its
+own rule in .summary-wrapper.
+*/
+.your-result-wrapper h1 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: rgb(248, 245, 245);
+}
+
+/*
+margin-top to move away from h1
+padding: 30px; to add space from the edge of the circle to the marks 76 of 100
+
+border-radius: 50%; to make it circular
+width: 80%; is the width of the circle within the your results wrapper
+height: auto; based on the width
+
+aspect-ratio: 1; keeps height and width same so that it looks like a circle instead of oval shape
+display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    to center the marks and put them in rows vertically
+
+box-shadow: 0 0 10px #514fcc; to make the circle look like its blended in the wrapper
+
+*/
+.avarage-marks {
+    margin-top: 20px;
+    background: linear-gradient(to bottom, #3646a4, #4947ca);
+    padding: 30px;
+    border-radius: 50%;
+    width: 80%;
+    height: auto;
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 0.9rem;
+    color: #e4e3f1;
+    font-weight: bold;
+    box-shadow: 0 0 10px #514fcc;
+}
+
+/*
+margin-bottom: 8px; to move of 100 a little away from 76
+*/
+.avarage-marks .total-marks{
+    font-size: 3rem;
+    color: white;
+    margin-bottom: 8px;
+}
+/*
+margin-top: 25px; to move Great away from the circle
+*/
+.your-result-wrapper h2 {
+    margin-top: 25px;
+    color: white;
+}
+/*
+margin-top: 0; because there is its more away, do decrese we remove the margin set by p
+*/
+.your-result-wrapper p {
+    margin-top: 0;
+    font-size: 1rem;
+    color:  #c6c5ed;
+}
+
+/*
+width: 50%; must be set because summary assumes the width of its contents, here we are forcing it to stay as wide as your result wrapper
+padding-to/bottom: 50px; to match the reference
+
+display: flex;
+flex-direction: column;
+
+to make the items align vertically
+
+*/
+.summary-wrapper {
+    width: 50%;
+    padding-top: 50px;
+    padding-right: 35px;
+    padding-bottom: 50px;
+    padding-left: 35px;
+    display: flex;
+    flex-direction: column;
+}
+
+/*
+margin: 0; to remove h2 margin, to keep it in the same line as your result
+*/
+.summary-wrapper h2{
+    margin: 0;
+    font-size: 1.2rem;
+    color: #1c1b3d;
+}
+
+/*
+list-style: none; removes the bullet points/numbers
+padding: 0; as the ul set default padding to the li
+*/
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+/*
+padding to add space inside each li
+border-radius: 15px; for each li
+margin-top/bottom: 10px; to add space between each li
+display: grid; to use grid-template-columns to separate icon, subject, marks as intended but is there any better approach
+*/
+li {
+    padding: 15px;
+    border-radius: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: grid;  
+    grid-template-columns: 15% 55% 30%;
+}
+
+.subject {
+    font-weight: bolder;
+}
+
+.score{ 
+    color: #484855;
+}
+
+.reaction {
+    background: #fff0f3;
+    color: #ff758f;
+}
+
+.memory{
+    background: #fbf7e7;
+    color: #dbb42c;
+}
+
+.verbal {
+    background: #f0fbfb;
+    color: #07beb8;
+}
+
+.visual {
+    color: #4361ee;
+    background: #f1f1f7;
+}
+
+/*
+margin-top: 10px; add space to move button away from ul
+margin-bottom: 10px; to maintain the same space within ul
+border-radius: 25px; to curve the borders
+border-style: none; tio remove the default style of gradient border
+padding: 15px; adds space within the button
+
+transition: opacity 0.015s; to smooth color transiution during click or hover
+*/
+.summary-wrapper button {
+    font-size: 0.9rem;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 25px;
+    border-style: none;
+    background: #313131;
+    color: #fffcfc;
+    padding: 15px;
+    transition: opacity 0.015s;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: bold;
+}
+
+.summary-wrapper button:hover {
+    opacity: 0.8;
+}
+
+.summary-wrapper button:active {
+    opacity: 0.6;
+}
+/*
+to remove default border when key board is clicked, but when clicked on the button it will be seen and helps screen readers and since button is a key board element
+*/
+.summary-wrapper button:focus-visible {
+    outline: 2px solid #4d4c4c;
+    outline-offset: 3px;
+}
+
+@media screen and (width < 550px) {
+    main {
+        flex-direction: column;
+    }
+
+    .your-result-wrapper, .summary-wrapper {
+        width: 100%;
+    }
+
+    .avarage-marks {
+        width: 50%
+    }
+    .your-result-wrapper {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+
+    body {
+        padding-top: 0;
+    }
+}
